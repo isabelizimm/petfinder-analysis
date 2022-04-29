@@ -32,9 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-text_model = markovify.Text(breed_desc["clean_text"], state_size=4)
-
-for i in range(3):
-    print(text_model.make_short_sentence(280) + "\n")
+url = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv"
+data = pd.read_csv(url)
+data.to_csv("./data/raw_rata.csv")
 -------------------
 
