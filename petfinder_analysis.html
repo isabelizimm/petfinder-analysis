@@ -214,8 +214,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#q3-what-kind-of-dog-is-there-the-longest">
-   Q3: What kind of dog is there the longest?
+  <a class="reference internal nav-link" href="#q3-are-pit-bulls-really-mean">
+   Q3: Are Pit Bulls really mean?
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -271,8 +271,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#q3-what-kind-of-dog-is-there-the-longest">
-   Q3: What kind of dog is there the longest?
+  <a class="reference internal nav-link" href="#q3-are-pit-bulls-really-mean">
+   Q3: Are Pit Bulls really mean?
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -299,7 +299,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">punctuation</span>
@@ -312,7 +312,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv&quot;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./data/raw_rata.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -787,32 +786,21 @@ memory usage: 13.6+ MB
 <img alt="_images/petfinder_analysis_13_1.png" src="_images/petfinder_analysis_13_1.png" />
 </div>
 </div>
+<p>Most dogs are Labs, Pit Bulls, or Chihuahuas. Do note, that this is a dog’s “primary breed,” so it is probably the case that many of these dogs are indeed mixed, but this is the breed they most resemble.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_desc</span><span class="p">[[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="_images/petfinder_analysis_14_1.png" src="_images/petfinder_analysis_14_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;age,sex&#39;&gt;
 </pre></div>
 </div>
 <img alt="_images/petfinder_analysis_15_1.png" src="_images/petfinder_analysis_15_1.png" />
 </div>
 </div>
+<p>Most dogs are adults (female, then male), then baby (female, then male), then young (male, then female), then senior (female, male).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">)</span>
@@ -823,13 +811,14 @@ memory usage: 13.6+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="_images/petfinder_analysis_16_1.png" src="_images/petfinder_analysis_16_1.png" />
+<img alt="_images/petfinder_analysis_17_1.png" src="_images/petfinder_analysis_17_1.png" />
 </div>
 </div>
-<p>From just a few lines of code, it looks like our dogs are medium, adult aged, male, and labrador retrievers. This gives us good quantitative data of what the dogs looks like, but the heart and soul of a rescue dog’s personality lives in the description.</p>
+<p>Most dogs are “medium sized.” This overview has given us good quantitative data of what the dogs looks like, but the heart and soul of a rescue dog’s personality lives in the description.</p>
 </div>
 <div class="section" id="q1-what-does-a-typical-description-of-a-dog-look-like">
 <h1>Q1: What does a typical description of a dog look like?<a class="headerlink" href="#q1-what-does-a-typical-description-of-a-dog-look-like" title="Permalink to this headline">¶</a></h1>
+<p>First, let’s clean the descritptions to remove punctuation, extra spaces, tabs, and new lines.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_desc</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -841,12 +830,6 @@ memory usage: 13.6+ MB
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="q2-can-we-generate-our-own-dog-descriptions">
-<h1>Q2: Can we generate our own dog descriptions?<a class="headerlink" href="#q2-can-we-generate-our-own-dog-descriptions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="or-markov-chains-and-text-wrangling-for-computer-generated-descriptions">
-<h2>(or, Markov chains and text wrangling for computer-generated descriptions)<a class="headerlink" href="#or-markov-chains-and-text-wrangling-for-computer-generated-descriptions" title="Permalink to this headline">¶</a></h2>
-<p>We can use a technique called <a class="reference external" href="https://setosa.io/ev/markov-chains/">Markov chains</a> and the library <a class="reference external" href="https://pypi.org/project/markovify/">markovify</a> to use natural language processing techniques for generating fake dog descriptions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;clean_text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">clean_desc</span><span class="p">)</span> <span class="c1"># perform clean_desc function on every row</span>
@@ -871,6 +854,203 @@ Name: clean_text, Length: 12992, dtype: object
 </div>
 </div>
 </div>
+<p>Then, we’ll remove the <code class="docutils literal notranslate"><span class="pre">stopwords</span></code>, or commonly used words such as “the”, “is”, “as”, “a”, and “and.”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+ 
+<span class="n">stop_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">remove_stop</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">word_tokens</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">filtered_sentence</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">word_tokens</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span>
+    <span class="n">filtered_sentence</span> <span class="o">=</span> <span class="p">[]</span>
+ 
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">word_tokens</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">:</span>
+            <span class="n">filtered_sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filtered_sentence</span>
+
+<span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;no_stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;clean_text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">remove_stop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we’ll use a counter to count the occurances of each word in all the descriptions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;no_stop&quot;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="n">c</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_words</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">top_words</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>dogs</th>
+      <td>8018</td>
+    </tr>
+    <tr>
+      <th>home</th>
+      <td>7703</td>
+    </tr>
+    <tr>
+      <th>please</th>
+      <td>7206</td>
+    </tr>
+    <tr>
+      <th>adoption</th>
+      <td>6843</td>
+    </tr>
+    <tr>
+      <th>old</th>
+      <td>6507</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>6284</td>
+    </tr>
+    <tr>
+      <th>application</th>
+      <td>6089</td>
+    </tr>
+    <tr>
+      <th>would</th>
+      <td>5332</td>
+    </tr>
+    <tr>
+      <th>loves</th>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td>4646</td>
+    </tr>
+    <tr>
+      <th>love</th>
+      <td>4562</td>
+    </tr>
+    <tr>
+      <th>meet</th>
+      <td>4387</td>
+    </tr>
+    <tr>
+      <th>cats</th>
+      <td>4376</td>
+    </tr>
+    <tr>
+      <th>sweet</th>
+      <td>4358</td>
+    </tr>
+    <tr>
+      <th>fee</th>
+      <td>4046</td>
+    </tr>
+    <tr>
+      <th>foster</th>
+      <td>3909</td>
+    </tr>
+    <tr>
+      <th>good</th>
+      <td>3888</td>
+    </tr>
+    <tr>
+      <th>well</th>
+      <td>3862</td>
+    </tr>
+    <tr>
+      <th>like</th>
+      <td>3857</td>
+    </tr>
+    <tr>
+      <th>mix</th>
+      <td>3826</td>
+    </tr>
+    <tr>
+      <th>great</th>
+      <td>3744</td>
+    </tr>
+    <tr>
+      <th>best</th>
+      <td>3480</td>
+    </tr>
+    <tr>
+      <th>people</th>
+      <td>3435</td>
+    </tr>
+    <tr>
+      <th>time</th>
+      <td>3412</td>
+    </tr>
+    <tr>
+      <th>interested</th>
+      <td>3406</td>
+    </tr>
+    <tr>
+      <th>us</th>
+      <td>3376</td>
+    </tr>
+    <tr>
+      <th>go</th>
+      <td>3368</td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td>3333</td>
+    </tr>
+    <tr>
+      <th>new</th>
+      <td>3300</td>
+    </tr>
+    <tr>
+      <th>play</th>
+      <td>3296</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>It looks like the top words include expected words like “dog”, “dogs”, “good”, but also includes others such as “old” (which is surprising since we saw most dogs were actually adult age). It also looks like people are well mannered when explaining next steps for adopting dogs: words like “please”, “fill” and “application” rank highly on the list.</p>
+</div>
+<div class="section" id="q2-can-we-generate-our-own-dog-descriptions">
+<h1>Q2: Can we generate our own dog descriptions?<a class="headerlink" href="#q2-can-we-generate-our-own-dog-descriptions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="or-markov-chains-and-text-wrangling-for-computer-generated-descriptions">
+<h2>(or, Markov chains and text wrangling for computer-generated descriptions)<a class="headerlink" href="#or-markov-chains-and-text-wrangling-for-computer-generated-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>We can use a technique called <a class="reference external" href="https://setosa.io/ev/markov-chains/">Markov chains</a> and the library <a class="reference external" href="https://pypi.org/project/markovify/">markovify</a> to use natural language processing techniques for generating fake dog descriptions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set seed for reproducibility</span>
@@ -886,29 +1066,64 @@ Name: clean_text, Length: 12992, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>these pups strikes a pose and is ready to go please consider meeting him when you visit the shelter
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>meet grey lonestar grey is just an all around great girl shes house trained crate trained spayed and current on vaccinations and are altered please do not fill out an application online at wwwhumanesocietyofmartincountyorg
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>balto 3 arrived at the shelter i took him out and about a home with calm energy and other dogs in his potential new home is a must for him he enjoys being active and being left alone at times
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>looking for a gentle dog who will be a great dog to meet your active lifestyle this is the dog for you
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>brandy is a very attentive affectionate and happy dog she is due to difficult past luna does have some anxiety and have medication that i will need a fenced yard to run and play and lots of love to give call casa
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>as an added bonus if youre over 50 my adoption fee is 150 if interested in adopting either felix or oscar or both please submit your adoption application via this link httpswwwspeakstlouiscomadoptionapplication2
 </pre></div>
 </div>
 </div>
 </div>
-<p>The beautiful thing about data science is that you really have 3 possible outcomes with your EDA.</p>
-<ol class="simple">
-<li><p>You learn your data is bad, and you can’t do what you thought you were going to do.</p></li>
-<li><p>You learn about your data, but it’s really just reiterating the things you already know.</p></li>
-<li><p>You learn new and unexpected things about your data.</p></li>
-</ol>
-<p>And they don’t happen equally. At first glance, our small markov model sees something unexpected– the descriptions might be used more often as a contact card than a dog’s profile for personality traits.</p>
-<p>Why might it seem this way? Well, we don’t know for sure. This might just be the most OFTEN used. #to do, add more</p>
+<p>This was quite fun. It looks like these are almost normal looking sentences! Markov chains are great for analyzing large corpus and generating similar word chains. If we wanted this to be even more natural sounding, we might increase our state size. However, this will take much longer to train, and it may overfit and just memorize words. For now, this looks like a great start to catfishing dogs.</p>
 </div>
 </div>
-<div class="section" id="q3-what-kind-of-dog-is-there-the-longest">
-<h1>Q3: What kind of dog is there the longest?<a class="headerlink" href="#q3-what-kind-of-dog-is-there-the-longest" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="q3-are-pit-bulls-really-mean">
+<h1>Q3: Are Pit Bulls really mean?<a class="headerlink" href="#q3-are-pit-bulls-really-mean" title="Permalink to this headline">¶</a></h1>
+<p>Pit Bulls get a bad wrap for being a dog with an attitude issue. To see if this hypothesis holds up, let’s look at the variables <code class="docutils literal notranslate"><span class="pre">env_dogs</span></code>, <code class="docutils literal notranslate"><span class="pre">env_children</span></code>, and <code class="docutils literal notranslate"><span class="pre">env_cats</span></code>, which denotes if a dog is safe to live in a home with other dogs, children, and cats, respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">breed_desc</span><span class="p">[</span><span class="n">breed_desc</span><span class="p">[</span><span class="s2">&quot;breed_primary&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Pit Bull Terrier&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span><span class="p">[</span><span class="s2">&quot;env_dogs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/petfinder_analysis_34_0.png" src="_images/petfinder_analysis_34_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span><span class="p">[</span><span class="s2">&quot;env_children&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/petfinder_analysis_35_0.png" src="_images/petfinder_analysis_35_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span><span class="p">[</span><span class="s2">&quot;env_cats&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/petfinder_analysis_36_0.png" src="_images/petfinder_analysis_36_0.png" />
+</div>
+</div>
+<p>Looking at these graphs, the majority of pit bulls are safe with kids and dogs, and about half are safe for cat-owners. This certainly isn’t thourough evidence to say much on the breed, but hopefully it sheds light on the kind of homes these dogs thrive in.</p>
 </div>
 <div class="section" id="q4-what-states-have-the-most-adoptable-dogs">
 <h1>Q4: What states have the most adoptable dogs?<a class="headerlink" href="#q4-what-states-have-the-most-adoptable-dogs" title="Permalink to this headline">¶</a></h1>
@@ -1038,9 +1253,9 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
         });
         }
         </script>
-</div><div class="output text_html"><div>                            <div id="c3973b68-db0e-4735-b644-6f9f1052c47c" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("c3973b68-db0e-4735-b644-6f9f1052c47c")) {                    Plotly.newPlot(                        "c3973b68-db0e-4735-b644-6f9f1052c47c",                        [{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"state=%{location}<br>adoptable_dogs=%{z}<extra></extra>","locationmode":"USA-states","locations":["PA","NY","NJ","GA","FL","OH","VA","NC","IN","CT","TN","AZ","WA","CO","OK","SC","MN","MD","IL","KY","MA","CA","AL","VT","MS","ME","MO","NV","RI","MI","LA","IA","WI","AR","NM","WV","TX","NH","KS","DC","DE","ND","UT","OR","WY","NE","ID","AK","SD"],"name":"","z":[1015,1010,890,707,568,549,531,518,497,478,449,438,363,354,324,322,303,288,264,256,244,240,218,189,184,165,156,154,152,144,143,117,113,87,84,76,74,65,62,54,42,23,21,16,15,13,6,5,2],"type":"choropleth"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"geo":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"center":{},"scope":"usa"},"coloraxis":{"colorbar":{"title":{"text":"adoptable_dogs"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
+</div><div class="output text_html"><div>                            <div id="074aea96-286c-4efe-a3db-f94e0752fe36" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("074aea96-286c-4efe-a3db-f94e0752fe36")) {                    Plotly.newPlot(                        "074aea96-286c-4efe-a3db-f94e0752fe36",                        [{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"state=%{location}<br>adoptable_dogs=%{z}<extra></extra>","locationmode":"USA-states","locations":["PA","NY","NJ","GA","FL","OH","VA","NC","IN","CT","TN","AZ","WA","CO","OK","SC","MN","MD","IL","KY","MA","CA","AL","VT","MS","ME","MO","NV","RI","MI","LA","IA","WI","AR","NM","WV","TX","NH","KS","DC","DE","ND","UT","OR","WY","NE","ID","AK","SD"],"name":"","z":[1015,1010,890,707,568,549,531,518,497,478,449,438,363,354,324,322,303,288,264,256,244,240,218,189,184,165,156,154,152,144,143,117,113,87,84,76,74,65,62,54,42,23,21,16,15,13,6,5,2],"type":"choropleth"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"geo":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"center":{},"scope":"usa"},"coloraxis":{"colorbar":{"title":{"text":"adoptable_dogs"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
 
-var gd = document.getElementById('c3973b68-db0e-4735-b644-6f9f1052c47c');
+var gd = document.getElementById('074aea96-286c-4efe-a3db-f94e0752fe36');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
